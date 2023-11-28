@@ -1,10 +1,24 @@
 from rest_framework import serializers
-from .models import Product, Lesson
+from .models import Product, Lesson, UserLesson, ViewedTime
 
+
+class ViewedTimeSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ViewedTime
+        fields = '__all__'
 
 class LessonSerializer(serializers.ModelSerializer):
     class Meta:
         model = Lesson
+        fields = '__all__'
+
+
+class UserLessonSerializer(serializers.ModelSerializer):
+    lesson = LessonSerializer()
+    viewed_times = ViewedTimeSerializer(many=True)
+
+    class Meta:
+        model = UserLesson
         fields = '__all__'
 
 
